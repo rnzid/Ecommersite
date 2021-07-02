@@ -8,65 +8,38 @@ using WebSite.Models;
 
 namespace WebSite.Controllers
 {
-    public class CategoryController : Controller
+    public class ApplicationTypeController : Controller
     {
-        public readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
 
-        public CategoryController(ApplicationDbContext db)
+        public ApplicationTypeController(ApplicationDbContext db)
         {
             _db = db;
         }
+
+
         public IActionResult Index()
         {
-            IEnumerable<Category> objList = _db.category;
+            IEnumerable<ApplicationType> objList = _db.ApplicationType;
             return View(objList);
         }
 
-        //Get-Create
+
+        //GET - CREATE
         public IActionResult Create()
         {
-            
             return View();
         }
 
-        //Post-Create
+
+        //POST - CREATE
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category obj)
-        {
-            if(ModelState.IsValid)
-            {
-                _db.category.Add(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(obj);
-            
-        }
-
-        //Get-Edit
-        public IActionResult Edit(int? id)
-        {
-            if(id==null || id ==0)
-            {
-                return NotFound();
-            }
-            var obj = _db.category.Find(id);
-            if(obj == null)
-            {
-                return NotFound();
-            }
-            return View(obj);
-        }
-
-        //Post-Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category obj)
+        public IActionResult Create(ApplicationType obj)
         {
             if (ModelState.IsValid)
             {
-                _db.category.Update(obj);
+                _db.ApplicationType.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,37 +48,69 @@ namespace WebSite.Controllers
         }
 
 
-        //Get-Delete
+        //GET - EDIT
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.ApplicationType.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        //POST - EDIT
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ApplicationType obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.ApplicationType.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+
+        }
+
+        //GET - DELETE
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var obj = _db.category.Find(id);
+            var obj = _db.ApplicationType.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
+
             return View(obj);
         }
 
-        //Post-Delete
+        //POST - DELETE
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(Category obj)
+        public IActionResult DeletePost(int? id)
         {
+            var obj = _db.ApplicationType.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
+            _db.ApplicationType.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
 
-                _db.category.Remove(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
 
         }
+
     }
 }
-
-

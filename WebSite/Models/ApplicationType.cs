@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 
 namespace WebSite.Models
 {
-    public class Category
+    public class ApplicationType
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         public String Name { get; set; }
-        [DisplayName("Display Order")]
-        [Required]
-        [Range(1,int.MaxValue,ErrorMessage ="Display order must be greather than zero")]
-        public int DisplayOrder { get; set; }
+       
     }
 }
