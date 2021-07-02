@@ -435,3 +435,5 @@ C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\Applic
 C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\ApplicationType\Index.cshtml.g.cs
 C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\Category\Edit.cshtml.g.cs
 C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\Category\Delete.cshtml.g.cs
+C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\ApplicationType\Edit.cshtml.g.cs
+C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\ApplicationType\Delete.cshtml.g.cs
