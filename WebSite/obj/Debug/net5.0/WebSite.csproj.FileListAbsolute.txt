@@ -438,3 +438,4 @@ C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\Catego
 C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\ApplicationType\Edit.cshtml.g.cs
 C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\ApplicationType\Delete.cshtml.g.cs
 C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\Product\Index.cshtml.g.cs
+C:\Users\user\Desktop\dotnet\WebSite\WebSite\obj\Debug\net5.0\Razor\Views\Product\Upsert.cshtml.g.cs

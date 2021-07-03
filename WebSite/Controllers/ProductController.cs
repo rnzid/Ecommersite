@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,18 +27,39 @@ namespace WebSite.Controllers
             return View(objList);
         }
 
-        //Get-Create
-        public IActionResult Create()
+        //Get-Upsert
+        public IActionResult Upsert(int? id)
         {
+            IEnumerable < SelectListItem > CategoryDropDown = _db.category.Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            });
+
+            ViewBag.CategoryDropDown = CategoryDropDown;  
+            product Product = new product();
+            if(id == null)
+            {
+                return View(Product);
+            }
+            else
+            {
+                Product = _db.Product.Find(id);
+                if(Product == null)
+                {
+                    return NotFound();
+                }
+                return View(Product);
+            }
             
-            return View();
         }
 
-        //Post-Create
+        //Post-Upsert
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(product obj)
+        public IActionResult Upsert(product obj)
         {
+            
             if(ModelState.IsValid)
             {
                 _db.Product.Add(obj);
@@ -47,37 +69,6 @@ namespace WebSite.Controllers
             return View(obj);
             
         }
-
-        //Get-Edit
-        public IActionResult Edit(int? id)
-        {
-            if(id==null || id ==0)
-            {
-                return NotFound();
-            }
-            var obj = _db.Product.Find(id);
-            if(obj == null)
-            {
-                return NotFound();
-            }
-            return View(obj);
-        }
-
-        //Post-Edit
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(product obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Product.Update(obj);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(obj);
-
-        }
-
 
         //Get-Delete
         public IActionResult Delete(int? id)
