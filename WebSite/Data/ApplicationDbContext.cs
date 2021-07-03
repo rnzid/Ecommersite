@@ -15,5 +15,6 @@ namespace WebSite.Data
         }
         public DbSet<Category> category { get; set; }
         public DbSet<ApplicationType> ApplicationType { get; set; }
+        public DbSet<product> Product { get; set; }
     }
 }
