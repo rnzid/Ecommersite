@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebSite.Data;
 using WebSite.Models;
+using WebSite.Models.ViewModels;
 
 namespace WebSite.Controllers
 {
@@ -30,26 +31,38 @@ namespace WebSite.Controllers
         //Get-Upsert
         public IActionResult Upsert(int? id)
         {
-            IEnumerable < SelectListItem > CategoryDropDown = _db.category.Select(i => new SelectListItem
+            /*IEnumerable < SelectListItem > CategoryDropDown = _db.category.Select(i => new SelectListItem
             {
                 Text = i.Name,
                 Value = i.Id.ToString()
-            });
+            });*/
 
-            ViewBag.CategoryDropDown = CategoryDropDown;  
-            product Product = new product();
+            //ViewBag.CategoryDropDown = CategoryDropDown;
+            //ViewData["CategoryDropDown"] = CategoryDropDown;
+            //product Product = new product();
+
+            ProductVM productVM = new ProductVM()
+            {
+                Product = new product(),
+                CategorySelectList = _db.category.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                })
+            };
+
             if(id == null)
             {
-                return View(Product);
+                return View(productVM);
             }
             else
             {
-                Product = _db.Product.Find(id);
-                if(Product == null)
+                productVM.Product = _db.Product.Find(id);
+                if(productVM.Product == null)
                 {
                     return NotFound();
                 }
-                return View(Product);
+                return View(productVM);
             }
             
         }
