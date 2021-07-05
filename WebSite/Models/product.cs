@@ -22,5 +22,10 @@ namespace WebSite.Models
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
+        [Display(Name = "Application Type")]
+        public int ApplicationId { get; set; }
+        [ForeignKey("ApplicationId")]
+        public virtual Category ApplicationType { get; set; }
+
     }
 }

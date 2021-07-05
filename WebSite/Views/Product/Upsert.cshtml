@@ -1,16 +1,17 @@
 ﻿@model WebSite.Models.ViewModels.ProductVM
 
-@{ 
+@{
     var title = "Create Product";
 }
+
 <form method="post" enctype="multipart/form-data">
     @if (Model.Product.Id != 0)
     {
-        title = "Edit Category";
+        title = "Edit Product";
         <input asp-for="Product.Id" hidden />
     }
-
     <div class="border p-3">
+
         <div class="form-group row">
             <h2 class="text-info pl-3">@title</h2>
         </div>
@@ -36,12 +37,22 @@
                     </div>
 
                 </div>
+               @* <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Product.ShortDesc"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Product.ShortDesc" class="form-control" />
+                        <span asp-validation-for="Product.ShortDesc" class="text-danger"></span>
+                    </div>
+
+                </div>*@
                 <div class="form-group row">
                     <div class="col-4">
                         <label asp-for="Product.Description"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Product.Description" class="form-control" />
+                        <textarea asp-for="Product.Description" class="form-control summernote"></textarea>
                         <span asp-validation-for="Product.Description" class="text-danger"></span>
                     </div>
 
@@ -61,43 +72,79 @@
                     </div>
                     <div class="col-8">
                         <select asp-for="Product.CategoryId" asp-items="@Model.CategorySelectList" class="form-control">
-                            <option disabled selected>--Selecte Category--</option>
+                            <option disabled selected>--Select Category--</option>
                         </select>
                         <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                     </div>
 
                 </div>
+                @*<div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Product.ApplicationTypeId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="Product.ApplicationTypeId" asp-items="@Model.ApplicationTypeSelectList" class="form-control">
+                            <option disabled selected>--Select Application Type--</option>
+                        </select>
+                        <span asp-validation-for="Product.ApplicationTypeId" class="text-danger"></span>
+                    </div>
+
+                </div>*@
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
 
                         <div class="col">
                             @if (Model.Product.Id != 0)
                             {
-                                //Update
+                                //update
                                 <input type="submit" class="btn btn-info w-100" value="Update" />
                             }
                             else
                             {
                                 //create
-                                <input type="submit" class="btn btn-primary w-100" value="Create" />
+                                <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" value="Create" />
                             }
+
                         </div>
                         <div class="col">
-                            <a asp-action="Index" onclick="return validateInput()" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i>Back</a>
+                            <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 ">
                 @* Keep this empty *@
+               @if (Model.Product.Id != 0)
+                {
+                    <img src="@Wc.ImagePath@Model.Product.Image" width="100%" style="border-radius:5px; border:1px solid #bbb" />
+                }
             </div>
         </div>
     </div>
+
 </form>
 
 @section Scripts{
+
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 250
+            });
+        });
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload an Image!',
+                    'error'
+                )
+                return false;
+            }
+            return true;
+        }
+    </script>
 }
